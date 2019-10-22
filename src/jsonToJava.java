@@ -19,17 +19,23 @@ public class jsonToJava {
 
 		Statement st = conn.createStatement();
 		
-		ResultSet rs = st.executeQuery("select * from CustomerInfo where purchasedDate=CURDATE() and Location ='Asia';");
+		ResultSet rs = st.executeQuery("select * from CustomerInfo where Location ='Asia' and PurchasedDate='2019-10-21' LIMIT 1;");
 
-		// pull out all the records and print them
 		// while there is another line in the resultSet
-		// this loop replaces repetitive code
+		// pull out all the records and print them (this loop replaces repetitive code)
 		while (rs.next())
 		{
-			System.out.println(rs.getString(1));
-			System.out.println(rs.getString(2));
-			System.out.println(rs.getInt(3));
-			System.out.println(rs.getString(4));
+			CustomerDetails c = new CustomerDetails();
+			
+			c.setCourseName(rs.getString(1));
+			c.setPurchaseDate(rs.getString(2));
+			c.setAmount(rs.getInt(3));
+			c.setLocation(rs.getString(4));	
+			
+			System.out.println(c.getCourseName());
+			System.out.println(c.getPurchaseDate());
+			System.out.println(c.getAmount());
+			System.out.println(c.getLocation());
 		}		
 		conn.close();
 	}
